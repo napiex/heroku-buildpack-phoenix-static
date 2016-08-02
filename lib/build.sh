@@ -29,10 +29,7 @@ cleanup_old_node() {
 
 install_node() {
   info "Installing node $node_version..."
-  tar xzf ${cached_node} -C /tmp
-
-  # Move node (and npm) into .heroku/node and make them executable
-  mv /tmp/node-v$node_version-linux-x64/* $heroku_dir/node
+  tar --strip-components=1 -C $heroku_dir/node -xzf ${cached_node}
   chmod +x $heroku_dir/node/bin/*
   PATH=$heroku_dir/node/bin:$PATH
 }
